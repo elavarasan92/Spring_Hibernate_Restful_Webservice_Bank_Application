@@ -1,5 +1,6 @@
 package com.tmb.service;
 
+import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import com.tmb.model.Book;
 import com.tmb.model.FromAccountsList;
 import com.tmb.model.PayeeAccountDetails;
 import com.tmb.model.User;
+import com.tmb.pojo.FundTransferInput;
 import com.tmb.pojo.IFSCCodeSearch;
 
 
@@ -31,4 +33,5 @@ public interface TMBService {
 	public boolean addPayee(PayeeAccountDetails payeeAccountDetails)throws Exception;
 	public List<BankDetails> getIFSCCode(IFSCCodeSearch iFSCCodeSearch);
 	public List<AccountDetails> getUserAccountDetailsList(String userid);
+	 public boolean transferMoney(FundTransferInput fundTransferInput) throws Exception;
 }

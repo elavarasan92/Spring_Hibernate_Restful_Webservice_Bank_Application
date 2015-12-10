@@ -1,6 +1,7 @@
 package com.tmb.dao;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -17,6 +18,7 @@ import com.tmb.model.Book;
 import com.tmb.model.FromAccountsList;
 import com.tmb.model.PayeeAccountDetails;
 import com.tmb.model.User;
+import com.tmb.pojo.FundTransferInput;
 import com.tmb.pojo.IFSCCodeSearch;
 
 import java.math.BigDecimal;
@@ -87,7 +89,7 @@ public class TMBDaoImpl implements TMBDao {
 
 	@Override
 	public User getUserDetails(String userid, String password) {
-		  session = sessionFactory.openSession();;
+		  session = sessionFactory.openSession();
 		Criteria cr = session.createCriteria(User.class);
 		cr.add(Restrictions.eq("userid", userid));
 		cr.add(Restrictions.eq("password", password));
@@ -102,7 +104,7 @@ public class TMBDaoImpl implements TMBDao {
 	
 	public AccountSummary getAccountSummary(String name) {
 	
-		  session = sessionFactory.openSession();;
+		  session = sessionFactory.openSession();
 		Criteria cr = session.createCriteria(AccountSummary.class);
 		cr.add(Restrictions.eq("accountHolderName", name));
 //		cr.add(Restrictions.eq("password", password));
@@ -223,6 +225,30 @@ public class TMBDaoImpl implements TMBDao {
 		session.close();
 		return userAccountDetailslist;
 	
+	}
+
+	@Override
+	public boolean transferMoney(FundTransferInput fundTransferInput)
+			throws Exception {
+		session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+        
+        String hql = "UPDATE AccountDetails set balance = :balance "  + 
+                "WHERE accountNumber = :accountNumber";
+       
+   Query query = session.createQuery(hql);
+   query.setParameter("balance", fundTransferInput.getAvailableAmount().subtract(fundTransferInput.getTransferAmount()));
+   query.setParameter("accountNumber", fundTransferInput.getFromAccountNumber());
+   int result = query.executeUpdate();
+   
+   String hql2 = "from AccountDetails where category.name = 'Computer'";
+   Query query2 = session.createQuery(hql2);
+   query2.uniqueResult();
+   System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Rows affected: " + result);
+   
+        tx.commit();
+        session.close();
+		return false;
 	}
 
 //	public List<Book> getBookList() throws Exception{

@@ -10,10 +10,12 @@ import com.tmb.model.Book;
 import com.tmb.model.FromAccountsList;
 import com.tmb.model.PayeeAccountDetails;
 import com.tmb.model.User;
+import com.tmb.pojo.FundTransferInput;
 import com.tmb.pojo.IFSCCodeSearch;
 
 import sun.misc.BASE64Encoder;
 
+import java.math.BigDecimal;
 import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -120,6 +122,13 @@ public class TMBServiceImpl implements TMBService{
 	public List<AccountDetails> getUserAccountDetailsList(String userid) {
 		
 		return tMBDao.getUserAccountDetailsList(userid);
+	}
+
+	@Override
+	public boolean transferMoney( FundTransferInput fundTransferInput)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return tMBDao.transferMoney(fundTransferInput);
 	}
 	
 

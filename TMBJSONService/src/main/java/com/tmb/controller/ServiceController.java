@@ -1,7 +1,9 @@
 package com.tmb.controller;
 
+import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,6 +26,7 @@ import com.tmb.model.FromAccountsList;
 import com.tmb.model.PayeeAccountDetails;
 import com.tmb.model.RSAPublicKeyBean;
 import com.tmb.model.User;
+import com.tmb.pojo.FundTransferInput;
 import com.tmb.pojo.IFSCCodeSearch;
 import com.tmb.pojo.Login;
 import com.tmb.pojo.Status;
@@ -206,7 +209,7 @@ public class ServiceController {
             return new Status(0, e.toString());
         }
     }
-    @RequestMapping(value="/fundtransfer", method = RequestMethod.GET)
+    @RequestMapping(value="/fundtransferinput", method = RequestMethod.GET)
     public @ResponseBody
     List<FromAccountsList> getFromAccountsList() {
         List<FromAccountsList> fromAccountsList = null;
@@ -243,5 +246,16 @@ public class ServiceController {
     }
     
     
+ @RequestMapping(value = "/moneytransfer", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    
+    public @ResponseBody
+    Status transferMoney(@RequestBody FundTransferInput fundTransferInput){
+        try{
+        	tMBService.transferMoney(fundTransferInput);
+            return new Status(1,"Money transferred to the payee account");
+        } catch (Exception e) {
+            return new Status(0, e.toString());
+        }
+    }
     
 }

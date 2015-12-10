@@ -1,5 +1,6 @@
 package com.tmb.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import com.tmb.model.Book;
 import com.tmb.model.FromAccountsList;
 import com.tmb.model.PayeeAccountDetails;
 import com.tmb.model.User;
+import com.tmb.pojo.FundTransferInput;
 import com.tmb.pojo.IFSCCodeSearch;
 
 
@@ -27,4 +29,5 @@ public interface TMBDao {
 	 public boolean addPayee(PayeeAccountDetails payeeAccountDetails) throws Exception;
 	 public List<BankDetails> getIFSCCode(IFSCCodeSearch iFSCCodeSearch);
 	 public List<AccountDetails> getUserAccountDetailsList(String userid);
+	 public boolean transferMoney(FundTransferInput fundTransferInput) throws Exception;
 }
