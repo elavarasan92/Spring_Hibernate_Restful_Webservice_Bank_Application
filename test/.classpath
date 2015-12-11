@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/hibernatejar/hibernatejar/com.mysql.jdbc_5.1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/elavarasan.natarajan/Downloads/commons-codec-1.10-bin/commons-codec-1.10/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/elavarasan.natarajan/Downloads/commons-codec-1.10-bin/commons-codec-1.10/commons-codec-1.10-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/elavarasan.natarajan/Downloads/commons-codec-1.10-bin/commons-codec-1.10/commons-codec-1.10-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/elavarasan.natarajan/Downloads/commons-codec-1.10-bin/commons-codec-1.10/commons-codec-1.10-tests.jar"/>
+	<classpathentry kind="lib" path="C:/Users/elavarasan.natarajan/Downloads/commons-codec-1.10-bin/commons-codec-1.10/commons-codec-1.10-test-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/elavarasan.natarajan/Downloads/jaunt1.1.1/jaunt1.1.1/jaunt1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/elavarasan.natarajan/Downloads/com.fasterxml.jackson.annotations.jar/com.fasterxml.jackson.annotations.jar"/>
+	<classpathentry kind="lib" path="C:/Users/elavarasan.natarajan/Downloads/apache-commons-lang.jar/apache-commons-lang.jar"/>
+	<classpathentry kind="lib" path="D:/softwares/jsoup-1.8.3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
