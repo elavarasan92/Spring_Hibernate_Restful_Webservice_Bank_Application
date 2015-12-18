@@ -240,10 +240,6 @@ public class TMBDaoImpl implements TMBDao {
    query.setParameter("balance", fundTransferInput.getAvailableAmount().subtract(fundTransferInput.getTransferAmount()));
    query.setParameter("accountNumber", fundTransferInput.getFromAccountNumber());
    int result = query.executeUpdate();
-   
-   String hql2 = "from AccountDetails where category.name = 'Computer'";
-   Query query2 = session.createQuery(hql2);
-   query2.uniqueResult();
    System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Rows affected: " + result);
    
         tx.commit();
