@@ -26,6 +26,8 @@ import com.tmb.model.FromAccountsList;
 import com.tmb.model.PayeeAccountDetails;
 import com.tmb.model.RSAPublicKeyBean;
 import com.tmb.model.User;
+import com.tmb.pojo.EMI;
+import com.tmb.pojo.EMIInput;
 import com.tmb.pojo.FundTransferInput;
 import com.tmb.pojo.IFSCCodeSearch;
 import com.tmb.pojo.Login;
@@ -257,5 +259,19 @@ public class ServiceController {
             return new Status(0, e.toString());
         }
     }
+ 
+ @RequestMapping(value="/calculateemi", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+ public @ResponseBody
+ List<EMI>  getEMIPayments(@RequestBody EMIInput eMIInput){
+ 	List<EMI> emiList = null;
+     try {
+     	
+    	 emiList = tMBService.getEMIPayments(eMIInput);
+
+     } catch (Exception e) {
+         e.printStackTrace();
+     }
+ return emiList;
+ }
     
 }

@@ -11,6 +11,8 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.tmb.enumeration.AccountType;
+import com.tmb.exception.TMBException;
 import com.tmb.model.AccountDetails;
 import com.tmb.model.AccountSummary;
 import com.tmb.model.BankDetails;
@@ -232,17 +234,42 @@ public class TMBDaoImpl implements TMBDao {
 			throws Exception {
 		session = sessionFactory.openSession();
         tx = session.beginTransaction();
-        
-        String hql = "UPDATE AccountDetails set balance = :balance "  + 
-                "WHERE accountNumber = :accountNumber";
        
-   Query query = session.createQuery(hql);
-   query.setParameter("balance", fundTransferInput.getAvailableAmount().subtract(fundTransferInput.getTransferAmount()));
-   query.setParameter("accountNumber", fundTransferInput.getFromAccountNumber());
-   int result = query.executeUpdate();
-   System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Rows affected: " + result);
-   
-        tx.commit();
+       
+        switch(fundTransferInput.getTransferType())
+        {
+        	case "NEFT":
+        	//	if()
+        		break;
+        		
+        	case "RTGS":
+        		
+        		break;
+        		
+        	case "IMPS":
+        	{
+        		 String hql = "UPDATE AccountDetails set balance = :balance "  + 
+        	                "WHERE accountNumber = :accountNumber";
+        	       
+        	   Query query = session.createQuery(hql);
+        	   query.setParameter("balance", fundTransferInput.getAvailableAmount().subtract(fundTransferInput.getTransferAmount()));
+        	   query.setParameter("accountNumber", fundTransferInput.getFromAccountNumber());
+        	   int result = query.executeUpdate();
+        	   System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Rows affected: " + result);
+        	   
+        	     
+        	   
+        	  
+        	}
+        		
+        		break;
+        		
+        	default:
+        		System.out.println("Invalid transfer type");
+        		throw new TMBException("Invalid transfer type");
+        		
+        }		
+          tx.commit();
         session.close();
 		return false;
 	}

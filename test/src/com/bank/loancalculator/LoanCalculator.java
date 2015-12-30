@@ -1,60 +1,76 @@
 package com.bank.loancalculator;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.bank.loancalculator.pojo.EMI;
+
 
 public class LoanCalculator {
+
+	double emi;
 	
-	public int count=1;
-	public double emi;
+	double totalInterest;
+	double totalPayableAmount;
+	List<EMI> emiList = new ArrayList<EMI>();
+	
+	public double calcEmi(double p,int n,double r)
+	{
+		r = r/(12*100);
+		emi=(p*r*(Math.pow((1+r), n)))/(Math.pow((1+r), n)-1);
+		return emi;
+		
+	}
 
 	public double emiCalc(double principal,int noOfInstallments,double rate)
 	{
-		if(count==1)
+
+		emi=Math.round(calcEmi(principal,noOfInstallments,rate));
+		totalInterest = Math.round((emi*noOfInstallments)-principal);
+		totalPayableAmount = principal+totalInterest;
+//		System.out.println("Principal-------------------------------"+principal);
+//		System.out.println("No of Installments----------------------"+noOfInstallments);
+//		System.out.println("Rate of Interest------------------------"+rate);
+//		System.out.println("Total emi-------------------------------"+emi);
+//		System.out.println("Total interest--------------------------"+totalInterest);
+//		System.out.println("Total amount payable including interest-"+totalPayableAmount);
+//	
+		
+		for(int i=1;i<=noOfInstallments;i++)
 		{
-		double r = rate/(12*100);
-		double emi=(principal*r*(Math.pow((1+r), noOfInstallments)))/(Math.pow((1+r), noOfInstallments)-1);
-		System.out.println("EMI-----"+Math.round(emi));
-		System.out.println("Interest---"+Math.round(r*principal));
-		System.out.println("Principal----"+Math.round(emi-(r*principal)));
-		System.out.println("###################################"+count);
-		count++;
+	
+			double ratePerMonth = rate/(12*100);
+			double principalOfMonth=Math.round(emi-(ratePerMonth*principal));
+			double balanceOfPrincipal =Math.round(principal-principalOfMonth);
+			double interestPerMonth = Math.round(ratePerMonth*principal);
+			EMI emi = new EMI();
+			emi.setPrincipalOfMonth(principalOfMonth);
+			emi.setInterestPerMonth(interestPerMonth);
+			emi.setBalanceOfPrincipal(balanceOfPrincipal);
+			
+//		System.out.println("No of Month#######################################-------"+i);
+//		//System.out.println("Total EMI of this month----------"+Math.round(emi));
+//		System.out.println("Interest of the Month-----"+interestPerMonth);
+//		System.out.println("Principal of the Month----"+principalOfMonth);
+//		System.out.println("Balance of principal-------"+balanceOfPrincipal);
+//		System.out.println("##################################################--------");
+		emiList.add(emi);
+		System.out.println("List of payments"+emiList);
+		principal=balanceOfPrincipal;
 		
 		}
-		else if(count>1)
-		{
-			for(int i=2;i<=noOfInstallments;i++)
-			{
-				double r = rate/(12*100);
-				double emi=(principal*r*(Math.pow((1+r), noOfInstallments)))/(Math.pow((1+r), noOfInstallments)-1);
-				System.out.println("EMI-----"+Math.round(emi));
-				System.out.println("Interest---"+Math.round(r*principal));
-				System.out.println("Principal----"+Math.round(emi-(r*principal)));
-				System.out.println("###################################"+count);
-				count++;
-				
-			}
-		}
+		
 		return emi;
 	}
 	
-//	public double emiCalc(double rate)
-//	{
-//		double r = (rate/12)*100);
-//	//	BigDecimal emi=principal*rate*(Math.pow(a, b))
-//		System.out.println(r);
-//		return r;
-//	
-//		
-//	}
 
 	public static void main(String [] args)
 	{
 		LoanCalculator obj = new LoanCalculator();
 		
+		
+		
 		obj.emiCalc(5000,5,10);
-//		double r= 10;
-//		double month = 12;
-//		double rate = r/(12*100);
-//		System.out.println(rate);
+
 	}
 }

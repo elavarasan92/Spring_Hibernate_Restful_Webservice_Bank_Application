@@ -4,7 +4,7 @@ public class EMCalc {
 
     public static void main(String[] args) {
             EMCalc eCalc = new EMCalc();
-            eCalc.calcEmiAllMonths(5000, 10, 5);
+            eCalc.calcEmiAllMonths(5000, 10, 50);
     }
 
     public Double calcEmi(double p, double r, double n) {

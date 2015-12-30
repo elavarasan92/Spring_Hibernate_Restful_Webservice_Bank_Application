@@ -10,8 +10,11 @@ import com.tmb.model.Book;
 import com.tmb.model.FromAccountsList;
 import com.tmb.model.PayeeAccountDetails;
 import com.tmb.model.User;
+import com.tmb.pojo.EMI;
+import com.tmb.pojo.EMIInput;
 import com.tmb.pojo.FundTransferInput;
 import com.tmb.pojo.IFSCCodeSearch;
+import com.tmb.utility.Utility;
 
 import sun.misc.BASE64Encoder;
 
@@ -129,6 +132,13 @@ public class TMBServiceImpl implements TMBService{
 			throws Exception {
 		// TODO Auto-generated method stub
 		return tMBDao.transferMoney(fundTransferInput);
+	}
+
+	@Override
+	public List<EMI> getEMIPayments(EMIInput eMIInput) {
+		
+		// TODO Auto-generated method stub
+		return Utility.emiCalc(eMIInput.getPrincipal(),eMIInput.getNoOfInstallments(),eMIInput.getRateOfInterest());
 	}
 	
 

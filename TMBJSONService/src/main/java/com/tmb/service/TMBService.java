@@ -12,6 +12,8 @@ import com.tmb.model.Book;
 import com.tmb.model.FromAccountsList;
 import com.tmb.model.PayeeAccountDetails;
 import com.tmb.model.User;
+import com.tmb.pojo.EMI;
+import com.tmb.pojo.EMIInput;
 import com.tmb.pojo.FundTransferInput;
 import com.tmb.pojo.IFSCCodeSearch;
 
@@ -34,4 +36,5 @@ public interface TMBService {
 	public List<BankDetails> getIFSCCode(IFSCCodeSearch iFSCCodeSearch);
 	public List<AccountDetails> getUserAccountDetailsList(String userid);
 	 public boolean transferMoney(FundTransferInput fundTransferInput) throws Exception;
+	 public List<EMI> getEMIPayments(EMIInput eMIInput);
 }
